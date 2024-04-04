@@ -3,9 +3,12 @@ package com.jainam.ecommerce.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,51 +22,50 @@ import com.jainam.ecommerce.request.CreateProductRequest;
 
 @Service
 public class ProductServiceImplementation implements ProductService {
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	@Override
-	//###############################################################
+	// ###############################################################
 	public Product createProduct(CreateProductRequest req) {
-		
+
 		Category topCategory = categoryRepository.findByName(req.getTopLevelCategory());
 
-		if(topCategory==null) {
+		if (topCategory == null) {
 			Category topLevelCategory = new Category();
 			topLevelCategory.setName(req.getTopLevelCategory());
 			topLevelCategory.setLevel(1);
-			
+
 			topCategory = categoryRepository.save(topLevelCategory);
 		}
-		
+
 		Category secCategory = categoryRepository.findByName(req.getSecLevelCategory());
 
-		if(secCategory==null) {
+		if (secCategory == null) {
 			Category secLevelCategory = new Category();
 			secLevelCategory.setName(req.getSecLevelCategory());
 			secLevelCategory.setLevel(2);
-			
+
 			topCategory = categoryRepository.save(secLevelCategory);
 		}
-		
+
 		Category thirdCategory = categoryRepository.findByName(req.getThirdLevelCategory());
 
-		if(thirdCategory==null) {
+		if (thirdCategory == null) {
 			Category thirdLevelCategory = new Category();
 			thirdLevelCategory.setName(req.getThirdLevelCategory());
 			thirdLevelCategory.setLevel(3);
-			
+
 			topCategory = categoryRepository.save(thirdLevelCategory);
 		}
-		
-		
+
 		Product product = new Product();
 		product.setTitle(req.getTitle());
 		product.setColor(req.getColor());
@@ -77,19 +79,19 @@ public class ProductServiceImplementation implements ProductService {
 		product.setSizes(req.getSizes());
 		product.setCategory(thirdCategory);
 		product.setPrice(req.getPrice());
-		
+
 		Product savedProduct = productRepository.save(product);
-		
+
 		return savedProduct;
 	}
 
 	@Override
 	public String deleteProduct(Long id) throws ProductException {
-		
+
 		Product product = findProductById(id);
 		product.getSizes().clear();
 		productRepository.delete(product);
-		
+
 		return "Product Deleted Successfully!!";
 	}
 
@@ -97,22 +99,22 @@ public class ProductServiceImplementation implements ProductService {
 	public Product updateProduct(Long productId, Product req) throws ProductException {
 
 		Product product = findProductById(productId);
-		
-		if(req.getQuantity() != 0) {
+
+		if (req.getQuantity() != 0) {
 			product.setQuantity(req.getQuantity());
 		}
-		
+
 		return productRepository.save(product);
 	}
 
 	@Override
 	public Product findProductById(Long id) throws ProductException {
-		
+
 		Optional<Product> opt = productRepository.findById(id);
-		
-		if(opt.isPresent())
+
+		if (opt.isPresent())
 			return opt.get();
-		
+
 		throw new ProductException("Product is not found with id: " + id);
 	}
 
@@ -122,19 +124,36 @@ public class ProductServiceImplementation implements ProductService {
 		return null;
 	}
 
-	
 //	###################################################
 	@Override
 	public Page<Product> getAllProducts(String cat, List<String> colors, List<String> sizes, Integer minPrice,
 			Integer maxPrice, Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
-		
+
 		Pageable pageble = PageRequest.of(pageNumber, pageSize);
-		
+
 		List<Product> products = productRepository.filterProducts(cat, minPrice, maxPrice, minDiscount, sort);
+
+		if (!colors.isEmpty()) {
+			products = products.stream().filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
+					.collect(Collectors.toList());
+		}
 		
+		if (stock != null) {
+			if(stock.equals("in_stock")){
+				products = products.stream().filter(p -> p.getQuantity()>0).collect(Collectors.toList());
+			}else if(stock.equals("out_of_stock")) {
+				products = products.stream().filter(p -> p.getQuantity()<1).collect(Collectors.toList());
+			}
+		}
 		
+		int startIndex = (int) pageble.getOffset();
+		int endIndex = Math.min(startIndex + pageble.getPageSize(), products.size());
 		
-		return null;
+		List<Product> pageContent = products.subList(startIndex, endIndex);
+		
+		Page<Product> filteredProducts = new PageImpl<>(pageContent, pageble, products.size());
+
+		return filteredProducts;
 	}
 
 }

@@ -21,6 +21,10 @@ public interface ProductService {
 	public List<Product> findProductByCategory(String cat) throws ProductException;
 	
 	public Page<Product> getAllProducts(String cat, List<String> colors, List<String> sizes, Integer minPrice, Integer maxPrice, Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize);
+
+	public List<Product> findAllProducts();
+
+//	public List<Product> searchProduct(String q);
 	
 	
 }

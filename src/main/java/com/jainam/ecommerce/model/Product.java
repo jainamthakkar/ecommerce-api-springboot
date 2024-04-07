@@ -32,7 +32,7 @@ public class Product {
 	private int price;
 	
 	@Column(name="discounted_price")
-	private String discountedPrice;
+	private Integer discountedPrice;
 	
 	@Column(name="discount_persent")
 	private String discountPersent;
@@ -67,7 +67,7 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(Long id, String title, String description, int price, String discountedPrice, String discountPresent,
+	public Product(Long id, String title, String description, int price, Integer discountedPrice, String discountPresent,
 			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
 			int numRating, Category category, LocalDateTime createdAt, String discountPersent) {
 		super();
@@ -120,11 +120,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getDiscountedPrice() {
+	public Integer getDiscountedPrice() {
 		return discountedPrice;
 	}
 
-	public void setDiscountedPrice(String discountedPrice) {
+	public void setDiscountedPrice(Integer discountedPrice) {
 		this.discountedPrice = discountedPrice;
 	}
 

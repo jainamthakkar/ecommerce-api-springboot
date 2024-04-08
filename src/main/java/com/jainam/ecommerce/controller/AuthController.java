@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jainam.ecommerce.config.JwtProvider;
 import com.jainam.ecommerce.exception.UserException;
+import com.jainam.ecommerce.model.Cart;
 import com.jainam.ecommerce.model.User;
 import com.jainam.ecommerce.repository.UserRepository;
 import com.jainam.ecommerce.request.LoginRequest;
 import com.jainam.ecommerce.response.AuthResponse;
+import com.jainam.ecommerce.service.CartService;
 import com.jainam.ecommerce.service.CustomUserServiceImplementation;
+
+import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +43,9 @@ public class AuthController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CartService cartService;
 
 	@Autowired
 	private CustomUserServiceImplementation customUserServiceImplementation;
@@ -70,8 +77,10 @@ public class AuthController {
 		newUser.setPassword(passwordEncoder.encode(password));
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
+		newUser.setCreatedAt(LocalDateTime.now());
 		
 		User savedUser = userRepository.save(newUser);
+		Cart cart = cartService.createCart(savedUser);
 		
 		Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -31,11 +31,13 @@ public class CartController {
 
 	@GetMapping("/")
 	public ResponseEntity<Cart> findUserCart(@RequestHeader("Authorization") String jwt) throws UserException {
-
-		User user = userService.findUserProfileByJwt(jwt);
-		Cart cart = cartService.findUserCart(user.getId());
-
-		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
+	    User user = userService.findUserProfileByJwt(jwt);
+	    if (user == null) {
+	        // Handle case where user is not found based on the provided JWT
+	        throw new UserException("User not found for the provided JWT");
+	    }
+	    Cart cart = cartService.findUserCart(user.getId());
+	    return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
 
 	@PutMapping("/add")

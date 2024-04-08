@@ -40,7 +40,7 @@ public class UserServiceImplementation implements UserService {
 		if(user==null)
 			throw new UserException("User not found: " + email);
 		
-		return null;
+		return user;
 	}
 
 }

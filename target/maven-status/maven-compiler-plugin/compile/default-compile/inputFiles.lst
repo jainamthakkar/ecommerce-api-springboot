@@ -12,6 +12,7 @@ D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\exception\OrderEx
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\model\Size.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\request\LoginRequest.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\controller\AuthController.java
+D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\OrderItemService.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\RatingRepository.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\controller\OrderController.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\config\JwtProvider.java
@@ -36,11 +37,13 @@ D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\controller\Review
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\UserServiceImplementation.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\model\PaymentInformation.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\RatingServiceImplementation.java
+D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\OrderItemRepository.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\EcommerceApplication.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\response\AuthResponse.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\CartItemRepository.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\request\ReviewRequest.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\controller\AdminProductController.java
+D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\controller\CartItemController.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\UserService.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\request\CreateProductRequest.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\OrderServiceImplementation.java
@@ -50,9 +53,11 @@ D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\request\AddItemRe
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\CartService.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\request\RatingRequest.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\response\ApiResponse.java
+D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\AddressRepository.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\RatingService.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\model\OrderItem.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\CategoryRepository.java
+D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\OrderItemServiceImplementation.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\service\ProductServiceImplementation.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\repository\OrderRepository.java
 D:\DEV\SpringBoot\ecommerce\src\main\java\com\jainam\ecommerce\model\CartItem.java

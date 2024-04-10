@@ -34,17 +34,17 @@ public class AdminProductController {
 	}
 	
 //	####################### do not have this ApiResponse till now
-//	@PostMapping("/{productId)/delete")
-//	public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) throws ProductException{
-//		 
-//		productService.deleteProduct(productId);
-//		
-//		ApiResponse res = new ApiResponse();
-//		res.setMessage("Product deleted successfully!!");
-//		res.setStatus(true);
-//		
-//		return new ResponseEntity<Product>(res, HttpStatus.OK);
-//	}
+	@PostMapping("/{productId}/delete")
+	public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) throws ProductException{
+		 
+		productService.deleteProduct(productId);
+		
+		ApiResponse res = new ApiResponse();
+		res.setMessage("Product deleted successfully!!");
+		res.setStatus(true);
+		
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Product>> findAllProducts(){

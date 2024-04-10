@@ -26,7 +26,7 @@ public class OrderItem {
 	
 	private String size;
 	
-	private Integer quality;
+	private Integer quantity;
 	
 	private Integer price;
 	
@@ -47,7 +47,7 @@ public class OrderItem {
 		this.order = order;
 		this.product = product;
 		this.size = size;
-		this.quality = quality;
+		this.quantity = quality;
 		this.price = price;
 		this.discountedPrice = discountedPrice;
 		this.userId = userId;
@@ -86,12 +86,12 @@ public class OrderItem {
 		this.size = size;
 	}
 
-	public Integer getQuality() {
-		return quality;
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuality(Integer quality) {
-		this.quality = quality;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Integer getPrice() {

@@ -3,11 +3,13 @@ com\jainam\ecommerce\config\JwtValidator.class
 com\jainam\ecommerce\model\Order.class
 com\jainam\ecommerce\request\LoginRequest.class
 com\jainam\ecommerce\request\ReviewRequest.class
+com\jainam\ecommerce\service\OrderItemServiceImplementation.class
 com\jainam\ecommerce\model\OrderItem.class
 com\jainam\ecommerce\service\CartService.class
 com\jainam\ecommerce\request\AddItemRequest.class
 com\jainam\ecommerce\repository\ReviewRepository.class
 com\jainam\ecommerce\exception\ProductException.class
+com\jainam\ecommerce\repository\OrderItemRepository.class
 com\jainam\ecommerce\config\JwtProvider.class
 com\jainam\ecommerce\response\ApiResponse.class
 com\jainam\ecommerce\service\ProductService.class
@@ -16,10 +18,12 @@ com\jainam\ecommerce\controller\CartController.class
 com\jainam\ecommerce\model\Cart.class
 com\jainam\ecommerce\model\Category.class
 com\jainam\ecommerce\model\Size.class
+com\jainam\ecommerce\controller\CartItemController.class
 com\jainam\ecommerce\service\ReviewServiceImplementation.class
 com\jainam\ecommerce\controller\OrderController.class
 com\jainam\ecommerce\repository\CartRepository.class
 com\jainam\ecommerce\service\UserServiceImplementation.class
+com\jainam\ecommerce\service\OrderItemService.class
 com\jainam\ecommerce\config\AppConfig.class
 com\jainam\ecommerce\exception\OrderException.class
 com\jainam\ecommerce\repository\RatingRepository.class
@@ -37,6 +41,7 @@ com\jainam\ecommerce\controller\ReviewController.class
 com\jainam\ecommerce\repository\CartItemRepository.class
 com\jainam\ecommerce\exception\CartItemException.class
 com\jainam\ecommerce\model\Review.class
+com\jainam\ecommerce\repository\AddressRepository.class
 com\jainam\ecommerce\repository\CategoryRepository.class
 com\jainam\ecommerce\service\ProductServiceImplementation.class
 com\jainam\ecommerce\service\UserService.class

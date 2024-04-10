@@ -14,8 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
-@Entity(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order {
 
 	@Id

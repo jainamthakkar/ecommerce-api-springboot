@@ -1,11 +1,6 @@
 package com.jainam.ecommerce.config;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.Arrays;
-import java.util.Collections;
-
-import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,34 +16,31 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class AppConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
-                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class).csrf().disable()
-                .cors().configurationSource(new CorsConfigurationSource() {
-                    @Override
-                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-
-                        CorsConfiguration cfg = new CorsConfiguration();
-                        cfg.setAllowedOrigins(Arrays.asList(
-                                "http://localhost:3000"
-                        ));
-
-                        cfg.setAllowedMethods(Collections.singletonList("*"));
-                        cfg.setAllowCredentials(null);
-                        cfg.setAllowedHeaders(Collections.singletonList("*"));
-
-                        return null;
-                    }
-                })
+                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
+                .csrf().disable()
+                .cors().configurationSource(corsConfigurationSource())
                 .and().httpBasic().and().formLogin();
         return http.build();
     }
-    
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+
+        org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-    	return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
-    
 }

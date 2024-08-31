@@ -1,6 +1,23 @@
 # Compiled class file
 *.class
 
+# Ignore IDE settings and metadata
+.idea/
+.metadata/
+.settings/
+
+# Ignore Maven wrapper files
+.mvn/
+
+# Ignore build files
+target/
+
+# Ignore other unnecessary files
+*.iml
+*.classpath
+*.project
+
+
 # Log file
 *.log
 

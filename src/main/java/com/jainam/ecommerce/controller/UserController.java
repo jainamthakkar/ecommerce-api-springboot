@@ -22,13 +22,13 @@ public class UserController {
 	@GetMapping("/profile")
 	public ResponseEntity<User> getUserProfileHandler(@RequestHeader("Authorization") String jwt) throws UserException{
 		
-//		System.out.println("1. inside profile: "+jwt);
+		System.out.println("1. inside profile: "+jwt);
 		
 //		User user = userService.findUserById(152l);
 		
 		User user = userService.findUserProfileByJwt(jwt);
 		
-//		System.out.println("3. "+ user.getEmail());
+		System.out.println("3. "+ user.getEmail());
 		
 		return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
 	}

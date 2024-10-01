@@ -15,7 +15,7 @@ public class CreateProductRequest {
 
 	private Integer discountedPrice;
 
-	private String discountPersent;
+	private Integer discountPersent;
 
 	private int quantity;
 
@@ -69,11 +69,11 @@ public class CreateProductRequest {
 		this.discountedPrice = discountedPrice;
 	}
 
-	public String getDiscountPersent() {
+	public Integer getDiscountPersent() {
 		return discountPersent;
 	}
 
-	public void setDiscountPersent(String discountPersent) {
+	public void setDiscountPersent(Integer discountPersent) {
 		this.discountPersent = discountPersent;
 	}
 

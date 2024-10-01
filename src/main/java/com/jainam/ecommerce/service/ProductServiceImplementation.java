@@ -129,28 +129,33 @@ public class ProductServiceImplementation implements ProductService {
 	public Page<Product> getAllProducts(String cat, List<String> colors, List<String> sizes, Integer minPrice,
 			Integer maxPrice, Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
 
+//		System.out.println("Filtering products with parameters: " + "category=" + cat + ", colors=" + colors
+//				+ ", sizes=" + sizes + ", minPrice=" + minPrice + ", maxPrice=" + maxPrice + ", minDiscount="
+//				+ minDiscount + ", sort=" + sort + ", stock=" + stock);
+
 		Pageable pageble = PageRequest.of(pageNumber, pageSize);
 
 		List<Product> products = productRepository.filterProducts(cat, minPrice, maxPrice, minDiscount, sort);
 
+		System.out.println("Found " + products.size() + " products after initial filter");
 		if (!colors.isEmpty()) {
 			products = products.stream().filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
 					.collect(Collectors.toList());
 		}
-		
+
 		if (stock != null) {
-			if(stock.equals("in_stock")){
-				products = products.stream().filter(p -> p.getQuantity()>0).collect(Collectors.toList());
-			}else if(stock.equals("out_of_stock")) {
-				products = products.stream().filter(p -> p.getQuantity()<1).collect(Collectors.toList());
+			if (stock.equals("in_stock")) {
+				products = products.stream().filter(p -> p.getQuantity() > 0).collect(Collectors.toList());
+			} else if (stock.equals("out_of_stock")) {
+				products = products.stream().filter(p -> p.getQuantity() < 1).collect(Collectors.toList());
 			}
 		}
-		
+
 		int startIndex = (int) pageble.getOffset();
 		int endIndex = Math.min(startIndex + pageble.getPageSize(), products.size());
-		
+
 		List<Product> pageContent = products.subList(startIndex, endIndex);
-		
+
 		Page<Product> filteredProducts = new PageImpl<>(pageContent, pageble, products.size());
 
 		return filteredProducts;
@@ -158,7 +163,7 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public List<Product> findAllProducts() {
-		
+
 		return productRepository.findAll();
 	}
 

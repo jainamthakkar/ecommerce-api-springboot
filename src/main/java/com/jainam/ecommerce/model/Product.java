@@ -6,6 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -35,7 +41,7 @@ public class Product {
 	private Integer discountedPrice;
 	
 	@Column(name="discount_persent")
-	private String discountPersent;
+	private Integer discountPersent;
 
 	private int quantity;
 	
@@ -61,15 +67,18 @@ public class Product {
 	@JoinColumn(name="category_id")
 	private Category category;
 	
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime createdAt;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(Long id, String title, String description, int price, Integer discountedPrice, String discountPresent,
+	public Product(Long id, String title, String description, int price, Integer discountedPrice,
 			int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
-			int numRating, Category category, LocalDateTime createdAt, String discountPersent) {
+			int numRating, Category category, LocalDateTime createdAt, Integer discountPersent) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -128,11 +137,11 @@ public class Product {
 		this.discountedPrice = discountedPrice;
 	}
 
-	public String getDiscountPersent() {
+	public Integer getDiscountPersent() {
 		return discountPersent;
 	}
 
-	public void setDiscountPersent(String discountPersent) {
+	public void setDiscountPersent(Integer discountPersent) {
 		this.discountPersent = discountPersent;
 	}
 
